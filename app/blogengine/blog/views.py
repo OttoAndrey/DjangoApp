@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from .models import Post, Tag
-from .utils import ObjectDetailMixin
-from .forms import TagForm
+from .utils import ObjectDetailMixin, ObjectCreateMixin
+from .forms import TagForm, PostForm
 
 
 # Create your views here.
@@ -21,20 +21,18 @@ class PostDetail(ObjectDetailMixin, View):
     template = 'blog/post_detail.html'
 
 
+class PostCreate(ObjectCreateMixin, View):
+
+    form_model = PostForm
+    template = 'blog/post_create_form.html'
+
+
 class TagDetail(ObjectDetailMixin, View):
     model = Tag
     template = 'blog/tag_detail.html'
 
 
-class TagCreate(View):
-    def get(self, request):
-        form = TagForm()
-        return render(request, 'blog/tag_create.html', context={'form': form})
+class TagCreate(ObjectCreateMixin, View):
 
-    def post(self, request):
-        bound_form = TagForm(request.POST)
-
-        if bound_form.is_valid():
-            new_tag = bound_form.save()
-            return redirect(new_tag)
-        return render(request, 'blog/tag_create.html', context={'form': bound_form})
+    form_model = TagForm
+    template = 'blog/tag_create.html'
