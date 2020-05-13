@@ -91,4 +91,3 @@ class TagDelete(LoginRequiredMixin, ObjectDeleteMixin, View):
     template = 'blog/tag_delete_form.html'
     redirect_url = 'tags_list_url'
     raise_exception = True
-

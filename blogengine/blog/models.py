@@ -4,6 +4,7 @@ from django.utils.text import slugify
 from time import time
 
 
+# Create your models here.
 def gen_slug(s):
     new_slug = slugify(s, allow_unicode=True)
     return '{0}-{1}'.format(new_slug, str(int(time())))
@@ -57,4 +58,3 @@ class Tag(models.Model):
 
     class Meta:
         ordering = ['title']
-
